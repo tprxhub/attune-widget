@@ -68,7 +68,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const assistantId = 'asst_xxx'; // Replace with your real assistant ID
+const assistantId = 'asst_9t8RWI3CIUU5w94NbIcq83F6'; // Replace with your real assistant ID
 
 app.post('/api/ask-attune', async (req, res) => {
   const userInput = req.body.message;
