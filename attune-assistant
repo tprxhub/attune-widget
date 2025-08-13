@@ -7,6 +7,7 @@
 
 // === Step 1: React Frontend (frontend/src/App.js) ===
 
+npm install react-scripts;
 import React, { useState } from 'react';
 import './App.css';
 
