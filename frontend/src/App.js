@@ -3,6 +3,14 @@
 import React, { useState } from 'react';
 import './App.css';
 
+function normalizeBullets(s) {
+  return s
+    // "1.\nText" -> "1. Text"
+    .replace(/(^|\n)(\s*)(\d+)\.\s*\n(\S)/g, '$1$2$3. $4')
+    // "-\nText" or "•\nText" or "*\nText" -> "- Text"
+    .replace(/(^|\n)(\s*)([-*•])\s*\n(\S)/g, '$1$2$3 $4');
+}
+
 function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -22,7 +30,7 @@ function App() {
     });
 
     const data = await response.json();
-    const botMessage = { role: 'assistant', content: data.reply };
+    const botMessage = { role: "assistant", content: normalizeBullets(data.reply) };
     setMessages((prev) => [...prev, botMessage]);
     setLoading(false);
   };
@@ -32,7 +40,7 @@ function App() {
       <h1>Attune™ by ToyRx</h1>
       <div className="chat-box">
         {messages.map((msg, idx) => (
-          <div key={idx} className={msg.role}>{msg.content}</div>
+          <div key={idx} className={`bubble ${msg.role}`}>{msg.content}</div>
         ))}
         {loading && <div className="assistant">Attune is thinking...</div>}
       </div>
